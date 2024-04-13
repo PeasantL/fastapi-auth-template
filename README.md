@@ -1,1 +1,3 @@
-Template User Auth with SQLite/PostGreSQL for cloning. Currently being prototpyed for PC-Manager.
+Template FastAPI User Auth with SQLite/PostgreSQL, for cloning. 
+
+Currently being prototyped for PC-Manager.
