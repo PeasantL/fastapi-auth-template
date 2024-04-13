@@ -1,0 +1,32 @@
+/fastapi-auth-template
+├── app                     # Application module
+│   ├── __init__.py         # Initializes the Python package
+│   ├── main.py             # Entry point to the FastAPI app; app configuration
+│   ├── dependencies.py     # Dependency functions for use with FastAPI's dependency injection system
+│   ├── core                # Core application configurations and shared components
+│   │   ├── __init__.py
+│   │   ├── config.py       # Configuration settings and environment variables
+│   │   └── database.py     # Database connection and session management
+│   ├── crud                # CRUD operations on the database
+│   │   ├── __init__.py
+│   │   ├── crud_auth.py    # CRUD operations for authentication
+│   │   ├── crud_item.py    # CRUD operations for the item model
+│   │   └── crud_user.py    # CRUD operations for the user model
+│   ├── models              # SQLAlchemy models
+│   │   ├── __init__.py
+│   │   ├── item.py         # Item model definition
+│   │   └── user.py         # User model definition
+│   ├── schemas             # Pydantic schemas for data validation
+│   │   ├── __init__.py
+│   │   ├── schema_auth.py  # Schema definitions for auth
+│   │   ├── schema_item.py  # Schema definitions for items
+│   │   └── schema_user.py  # Schema definitions for users
+│   └── routers             # Router definitions for API endpoints
+│       ├── __init__.py
+│       ├── router_auth.py  # Defines routes for auth-related operations
+│       ├── router_item.py  # Defines routes for item-related operations
+│       └── router_user.py  # Defines routes for user-related operations
+├── alembic                 # Database migrations
+│   └── versions            # Migration scripts
+└── requirements.txt        # Project dependencies
+

@@ -11,8 +11,8 @@ fi
 
 echo "Checking Dependancies"
 #Sudo dependecies for some reason, to find out why
-pip sudo install -r requirements.txt
+pip install -r requirements.txt
 echo "Running Server"
 
 
-uvicorn main:app --reload 
+uvicorn app.main:app --reload 
