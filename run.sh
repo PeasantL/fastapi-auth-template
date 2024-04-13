@@ -10,7 +10,8 @@ else
 fi
 
 echo "Checking Dependancies"
-pip install -r requirements.txt
+#Sudo dependecies for some reason, to find out why
+pip sudo install -r requirements.txt
 echo "Running Server"
 
 
