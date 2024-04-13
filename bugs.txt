@@ -1,0 +1,1 @@
+Checking users when there are no tables causes internal error

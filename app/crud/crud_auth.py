@@ -1,16 +1,12 @@
+from sqlalchemy.orm import Session
 from ..core.security import verify_password
-from ..schemas.schema_user import UserInDB
+from .crud_user import get_user_by_email
 
 
-def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
-
-def authenticate_user(fake_db, username: str, password: str):
-    user = get_user(fake_db, username)
+def authenticate_user(db: Session, email: str, password: str):
+    user = get_user_by_email(db, email)
     if not user:
         return False
-    if not verify_password(password, user.hashed_password):
+    if not verify_password(password, user.hashed_password):  # Ensure you are comparing the correct attributes
         return False
     return user

@@ -1,29 +1,23 @@
-from typing import Annotated
-
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt
+from jose import jwt, JWTError
+from sqlalchemy.orm import Session
 
 from .core.config import SECRET_KEY, ALGORITHM
-from .schemas.schema_token import TokenData
-from .crud.crud_auth import get_user
+from .core.database import SessionLocal
+from .crud.crud_user import get_user_by_email
 from .schemas.schema_user import User
-
-
-#To remove shortly
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "$2b$12$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW",
-        "disabled": False,
-    }
-}
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -31,21 +25,18 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     )
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        email: str = payload.get("sub")
+        if email is None:
             raise credentials_exception
-        token_data = TokenData(username=username)
     except JWTError:
         raise credentials_exception
-    user = get_user(fake_users_db, username=token_data.username)
+
+    user = get_user_by_email(db, email=email)
     if user is None:
         raise credentials_exception
     return user
 
-
-async def get_current_active_user(
-    current_user: Annotated[User, Depends(get_current_user)],
-):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
+async def get_current_active_user(current_user: User = Depends(get_current_user)):
+    if not current_user.is_active:
+        raise HTTPException(status_code=403, detail="Inactive user")
     return current_user
