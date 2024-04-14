@@ -1,10 +1,11 @@
 from pydantic import BaseModel
+from typing import Optional
 
 from .schema_item import Item
 
 
 class UserBase(BaseModel):
-    email: str
+    username: str
 
 class UserCreate(UserBase):
     password: str
@@ -16,3 +17,8 @@ class User(UserBase):
 
     class Config:
         from_attributes = True
+
+class UserUpdate(UserBase):
+    username: Optional[str] = None
+    is_active: Optional[bool] = None
+    password: Optional[str] = None
