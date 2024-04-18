@@ -12,4 +12,6 @@ class User(Base):
     hashed_password = Column(String)
     is_active = Column(Boolean, default=True)
 
-    items = relationship("Item", back_populates="owner")
+    # Items associated with user are deleted upon termination of user
+    # Items without a associated user are also deleted
+    items = relationship("Item", back_populates="owner", cascade="all, delete, delete-orphan")

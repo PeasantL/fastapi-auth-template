@@ -23,17 +23,17 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 
 def update_user(db: Session, user_id: int, user: schemas.UserUpdate):
     db_user = get_user(db, user_id)
-    if user.username is not None:
-        db_user.username = user.username
-    if user.password is not None:
-        db_user.hashed_password = get_password_hash(user.password)
-    if user.is_active is not None:
-        db_user.is_active = user.is_active
+    if db_user:
+        if user.username is not None:
+            db_user.username = user.username
+        if user.password is not None:
+            db_user.hashed_password = get_password_hash(user.password)
+        if user.is_active is not None:
+            db_user.is_active = user.is_active
 
     db.commit()
     return db_user
 
-#Change to providing a responce on successful deletion?
 def delete_user(db: Session, user_id: int):
     db_user = get_user(db, user_id)
     if db_user:
