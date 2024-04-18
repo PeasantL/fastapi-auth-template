@@ -1,17 +1,51 @@
-<h2>Basic FastAPI template for User Authentication with SQLite.</h2>
+<h2>FastAPI Template for User Auth.</h2>
+
+Basic FastAPI template for User Authentication with SQLite database integration.
+Prototyped for PC-Manager.
 
 
+<h3>Steps to Run</h3>
 
+Clone the repo.
 
+```
+git clone https://github.com/PeasantL/fastapi-auth-template
+```
 
-<h4>Folder Structure</h4>
+Edit config.py, Replace SECRET_KEY with a gen key like the following.
+
+```
+openssl rand -hex 32
+```
+
+Install the requirements.
+
+```
+python3 -m venv .venv
+source "./.venv/bin/activate"
+pip install -r requirements.txt
+```
+
+Create the database and run migration scripts.
+
+```
+alembic upgrade head
+```
+
+Run the program.
+
+```
+./run.sh
+```
+
+<h3>Folder Structure</h3>
 
 ```
 /fastapi-auth-template
-├── app                     # Application module
-│   ├── __init__.py         # Initializes the Python package
+├── app                     
+│   ├── __init__.py         
 │   ├── main.py             # Entry point to the FastAPI app; app configuration
-│   ├── dependencies.py     # Dependency functions for use with FastAPI's dependency injection system
+│   ├── dependencies.py     # Functions for FastAPI's dependency injection system
 │   ├── core                # Core application configurations and shared components
 │   │   ├── __init__.py
 │   │   ├── config.py       # Configuration settings and environment variables
@@ -39,8 +73,8 @@
 ├── alembic                 # Database migrations
 │   └── versions            # Migration scripts
 └── requirements.txt        # Project dependencies
-└── alembic.ini             # 
-└── run.sh                  # Run the scripts 
+└── alembic.ini             # Alembic config 
+└── run.sh                  # Run the server
 ```
 
-Currently being prototyped for PC-Manager.
+
