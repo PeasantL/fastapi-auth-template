@@ -5,6 +5,7 @@
 
 
 <h4>Folder Structure</h4>
+
 ```
 /fastapi-auth-template
 ├── app                     # Application module
