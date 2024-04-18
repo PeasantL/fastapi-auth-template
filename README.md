@@ -18,24 +18,14 @@ Edit config.py, Replace SECRET_KEY with a gen key like the following.
 openssl rand -hex 32
 ```
 
-Install the requirements.
-
-```
-python3 -m venv .venv
-source "./.venv/bin/activate"
-pip install -r requirements.txt
-```
-
-Create the database and run migration scripts.
-
-```
-alembic upgrade head
-```
-
 Run the program.
 
 ```
-./run.sh
+./run.sh 
+
+or
+
+.\run.bat
 ```
 
 <h3>Folder Structure</h3>
@@ -76,5 +66,3 @@ Run the program.
 └── alembic.ini             # Alembic config 
 └── run.sh                  # Run the server
 ```
-
-

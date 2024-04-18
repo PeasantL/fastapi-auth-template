@@ -11,8 +11,12 @@ fi
 
 echo "Checking Dependancies"
 #Sudo dependecies for some reason, to find out why
-pip install -r requirements.txt
+pip install -r requirements.txt >/dev/null
+
+#Check if database has been generated
+if [ ! -f "./.sql_app.db" ]; then
+    echo "Database file does not exist. Creating database."
+    alembic upgrade head
+
 echo "Running Server"
-
-
 uvicorn app.main:app --reload 
