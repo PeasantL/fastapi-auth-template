@@ -1,7 +1,7 @@
 <h2>FastAPI Template for User Auth.</h2>
 
 Basic FastAPI template for User Authentication with SQLite database integration.
-Prototyped for PC-Manager.
+Created for PC-Manager.
 
 
 <h3>Steps to Run</h3>
@@ -37,6 +37,9 @@ Run the program.
 ```
 ./run.sh
 ```
+
+You can view the endpoints at http://127.0.0.1:8000/docs
+
 
 <h3>Folder Structure</h3>
 

@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 from jose import jwt
-from .config import SECRET_KEY, ALGORITHM
+import toml 
 
+with open('app/core/config.toml', 'r') as file:
+    config_data = toml.load(file)
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -20,5 +22,5 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
         expire = datetime.now(timezone.utc) + timedelta(minutes=15)
     to_encode.update({"exp": expire})
     # JSON Web Token (JWT) to encrypt JSON data during transfers
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, config_data[auth].secret_key, algorithm=config_data[auth].algorithm)
     return encoded_jwt

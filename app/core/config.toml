@@ -1,0 +1,4 @@
+[auth]
+secret_key = "d438f3b3b82745d8e417092e49777b3664d3f32570e586ca230fa445be3feda2"
+algorithm = "HS256"
+access_token_expire_minutes = 30
